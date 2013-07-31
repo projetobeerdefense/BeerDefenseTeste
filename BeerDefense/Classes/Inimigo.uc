@@ -8,6 +8,7 @@ var vector vPosition;
 simulated function PostBeginPlay()
 {
 	super.PostBeginPlay();
+	`log('teste');
 }
 
 defaultproperties
