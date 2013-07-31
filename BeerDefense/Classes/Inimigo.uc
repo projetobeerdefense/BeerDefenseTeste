@@ -3,6 +3,7 @@ class inimigo extends actor;
 //Classe para testar a funcionalidade do Git
 
 var int iHealth;
+var vector vPosition;
 
 simulated function PostBeginPlay()
 {
@@ -11,4 +12,5 @@ simulated function PostBeginPlay()
 
 defaultproperties
 {
+	iHealth=100
 }
