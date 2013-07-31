@@ -1,4 +1,4 @@
-class inimigo extends actor;
+class inimigo extends UTBot;
 
 //Classe para testar a funcionalidade do Git
 
