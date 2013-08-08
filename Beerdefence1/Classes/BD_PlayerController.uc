@@ -39,7 +39,7 @@ var MouseSel MouseY;
 //var bool MouseYKey;
 var MouseMove MouseZ;
 //var bool MouseYKey;
-var array<Actor> nMouse; 
+var array<actor> nMouse; 
 
 var int themouse;
 //var BotMarker MouseX;
@@ -59,6 +59,10 @@ var array<BD_InimigoPawn> alvo2;
 var BD_InimigoPawn exemplo;
 
 var array <bool> controles;
+var bool canatak;
+
+var BD_mousePawn mousep;
+var BotController mousecon;
 
 simulated function PostBeginPlay()
 {
@@ -118,7 +122,7 @@ function SpawnBot(Vector SpawnLocation)
 	  Car_FollowBot.FollowDistance = 250;
       Car_FollowPawn.SetPhysics(PHYS_Falling);
 		
-	  SpawnLocation.y = Car_FollowPawn.location.y +300;
+	  SpawnLocation.y = Car_FollowPawn.location.y +350;
 	  javali_bot = Spawn(class'BD_CarrocaController',,,SpawnLocation);
       Javali_pawn = Spawn(class'BD_JavaliPawn',,,SpawnLocation);
       javali_bot.Possess(Javali_pawn,false);
@@ -128,9 +132,7 @@ function SpawnBot(Vector SpawnLocation)
 	   Car_FollowBot.CurrentGoal= Javali_pawn;
 
 	  //Spawn mouse mark
-	  nMouse[0] = Spawn(class'MouseMark',,,BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation);
-	  nMouse[1] = Spawn(class'MouseSel',,,BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation);
-	  nMouse[2] = Spawn(class'MouseMove',,,BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation);
+	 
 
       //Spawn e config. dos Spots
       SpotLocation = Car_FollowBot.Location;
@@ -152,7 +154,13 @@ function SpawnBot(Vector SpawnLocation)
       SpawnLocation.z += 100;
       SpawnLocation.x += 100;
 
+	  mousep = Spawn(class'BD_mousePawn',,,SpawnLocation);
+	  mousecon= Spawn(class'BotController',,,SpawnLocation);
+      mousecon.Possess(mousep,false);
+	 // mousecon.CurrentGoal = nMouse[3];
+	  mousep.SetPhysics(PHYS_Falling);
       //Spawn e Configuração dos Anoes
+		SpawnLocation.z += 100;
       Anao_Bot[0] = Spawn(class'BD_Anao_Atirador_Controller',,,SpawnLocation);
       Anao_Pawn[0] = Spawn(class'BD_Anao_Atirador_Pawn',,,SpawnLocation);
       Anao_Bot[0].Possess(Anao_Pawn[0],false);
@@ -171,8 +179,8 @@ function SpawnBot(Vector SpawnLocation)
 
 	  SpawnLocation.x += 50;
 
-	  Anao_Bot[2] = Spawn(class'BD_Anao_Engenheiro_Controller',,,SpawnLocation);
-      Anao_Pawn[2] = Spawn(class'BD_Anao_Engenheiro_Pawn',,,SpawnLocation);
+	  Anao_Bot[2] = Spawn(class'BD_Anao_Atirador_Controller',,,SpawnLocation);
+      Anao_Pawn[2] = Spawn(class'BD_Anao_Atirador_Pawn',,,SpawnLocation);
       Anao_Bot[2].Possess(Anao_Pawn[2],false);
       Anao_Bot[2].CurrentGoal = self.Spots[2];
 	  Anao_Bot[2].spot= self.Spots[2];
@@ -180,8 +188,8 @@ function SpawnBot(Vector SpawnLocation)
 
 	  SpawnLocation.x += 50;
 
-	  Anao_Bot[3] = Spawn(class'BD_Anao_Engenheiro_Controller',,,SpawnLocation);
-      Anao_Pawn[3] = Spawn(class'BD_Anao_Engenheiro_Pawn',,,SpawnLocation);
+	  Anao_Bot[3] = Spawn(class'BD_Anao_Atirador_Controller',,,SpawnLocation);
+      Anao_Pawn[3] = Spawn(class'BD_Anao_Atirador_Pawn',,,SpawnLocation);
       Anao_Bot[3].Possess(Anao_Pawn[3],false);
       Anao_Bot[3].CurrentGoal = self.Spots[3];
 	  Anao_Bot[3].spot= self.Spots[3];
@@ -220,10 +228,7 @@ function updateSpots(vector newLocation)
 
 function updateMousep(vector newLocation,int x)
 {
-    local vector updateLocation;
-
-    updateLocation = newLocation;
-	nMouse[x].SetLocation(updateLocation);
+  
 	
 }
 
@@ -234,7 +239,8 @@ function PlayerTick(float DeltaTime)
 	local  float mx;  //change in mouse x direction from user
 	local  float my;  //change in mouse y direction from user
 	local int cont;
-	
+	local int cont2;
+	local vector loclin;
 	//
 	//worldinfo.game.broadcast(self,"carroca index = "@car_followpawn.index);
 
@@ -244,7 +250,18 @@ function PlayerTick(float DeltaTime)
 		 my = PlayerInput.aMouseY;
 
 		// MouseX.SetLocation(joyHUD.HitLocation);
-		updateMousep(BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation,themouse);
+		 loclin = BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation;
+		  
+		 
+		 
+		// loclin = BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation;
+		 loclin.Z = Car_FollowPawn.Location.Z;
+		 mousep.SetLocation(loclin);
+		//updateMousep(BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation,0);
+		//updateMousep(BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation,1);
+		//updateMousep(BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation,2);
+		//updateMousep(BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation,3);
+		//updateMousep(BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation,themouse);
 //-------------------------------------------------------------------------
 
     Super.PlayerTick(DeltaTime); //chama o tick de novo
@@ -291,9 +308,8 @@ function PlayerTick(float DeltaTime)
 			
 		//	MouseX.Destroy();
 			themouse=1;
-			nMouse[0].SetHidden(true);
-			nMouse[1].SetHidden(false);
-			nMouse[2].SetHidden(true);
+			
+			mousep.mouseselect(2);
 			//WorldInfo.Game.Broadcast(self,"Spot0 Z = "@ MouseX.Location.Z);
 			
 		} else
@@ -302,9 +318,8 @@ function PlayerTick(float DeltaTime)
 			
 		//	MouseX.Destroy();
 			themouse=1;
-			nMouse[0].SetHidden(true);
-			nMouse[1].SetHidden(false);
-			nMouse[2].SetHidden(true);
+			
+			mousep.mouseselect(2);
 		//	WorldInfo.Game.Broadcast(self,"Spot0 Z = "@ MouseX.Location.Z);
 			
 		} else
@@ -313,9 +328,8 @@ function PlayerTick(float DeltaTime)
 			
 		//	MouseX.Destroy();
 			themouse=1;
-			nMouse[0].SetHidden(true);
-			nMouse[1].SetHidden(false);
-			nMouse[2].SetHidden(true);
+			
+			mousep.mouseselect(2);
 	//		WorldInfo.Game.Broadcast(self,"Spot0 Z = "@ MouseX.Location.Z);
 			
 		} else
@@ -324,9 +338,8 @@ function PlayerTick(float DeltaTime)
 			
 		//	MouseX.Destroy();
 			themouse=1;
-			nMouse[0].SetHidden(true);
-			nMouse[1].SetHidden(false);
-			nMouse[2].SetHidden(true);
+			
+			mousep.mouseselect(2);
 		//	WorldInfo.Game.Broadcast(self,"Spot0 Z = "@ MouseX.Location.Z);
 			
 		} else
@@ -334,27 +347,47 @@ function PlayerTick(float DeltaTime)
 		if(BeerDefenceGame(WorldInfo.Game).joyHUD.selected ==true){
 		//	MouseX.tag='move';
 			themouse=2;
-			nMouse[0].SetHidden(true);
-			nMouse[1].SetHidden(true);
-			nMouse[2].SetHidden(false);
+			
+			mousep.mouseselect(3);
+			if(BeerDefenceGame(WorldInfo.Game).joyHUD.anao != 0){
+			 Anao_Bot[BeerDefenceGame(WorldInfo.Game).joyHUD.anao].click = true;
+			 Anao_Bot[BeerDefenceGame(WorldInfo.Game).joyHUD.anao].setgoal(mousep);
+				for(cont2 = 0;cont2<4;cont2++){
+				if(cont2 != BeerDefenceGame(WorldInfo.Game).joyHUD.anao){
+				Anao_Bot[cont2].click = false;
+				`log("mouse been");
+				}
+			}
+			}
+		
+			
+
 		//	WorldInfo.Game.Broadcast(self,"Spot0 Z = "@ MouseX.Location.Z);
 		} else
 //volta ao normal----------------------------------------------------------------------
 		//MouseX.tag='normal'
 		{
+			if(!Anao_Pawn[BeerDefenceGame(WorldInfo.Game).joyHUD.anao].inisel || BeerDefenceGame(WorldInfo.Game).joyHUD.anao == 4){
 			themouse=0;
-			nMouse[0].SetHidden(false);
-			nMouse[1].SetHidden(true);
-			nMouse[2].SetHidden(true);
+			
+			mousep.mouseselect(1);
+			for(cont2 = 0;cont2<4;cont2++){
+				Anao_Bot[cont2].click = false;
 		}
+			}
+			if(Anao_Pawn[BeerDefenceGame(WorldInfo.Game).joyHUD.anao].inisel){
+				
+				mousep.mouseselect(2);
+				Anao_Bot[BeerDefenceGame(WorldInfo.Game).joyHUD.anao].setgoal(exemplo);
+			}
+		}
+//for(cont=0; cont <4; cont++){
+//	if(vsize(Anao_Pawn[cont].Location - Nspot[cont].Location) <100){
+//		`log("entrando destroy"@Nspot[cont]);
+//		Nspot[cont].Destroy();
+//	}
 
-for(cont=0; cont <4; cont++){
-	if(vsize(Anao_Pawn[cont].Location - Nspot[cont].Location) <100){
-		`log("entrando destroy"@Nspot[cont]);
-		Nspot[cont].Destroy();
-	}
-
-}
+//}
 
 
 //---------------------------------------------------------------

@@ -3,5 +3,5 @@ defaultproperties
 {
 
 WeaponProjectiles(0)=class'BD_BulletBase'
-FireInterval(0)=2.5
+FireInterval(0)=1.0
 }

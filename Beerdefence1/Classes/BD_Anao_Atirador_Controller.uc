@@ -23,7 +23,14 @@ class BD_Anao_Atirador_Controller extends BD_AnaoController;
 
 function Tick(float DeltaTime0)
 {   
-		   //variavel auxiliar que guarda o currentgoal (spot ou click)
+		
+	if(!click){
+
+	if(bused){
+	voltabesta(spot);
+	bused =false;
+	}
+	//variavel auxiliar que guarda o currentgoal (spot ou click)
          //Confere se Anão está atordoado
      //    BD_Anao_Guerreiro_Pawn(pawn).quemtaai();
 		 proxalvo = BD_Anao_Atirador_Pawn(pawn).next();
@@ -126,7 +133,21 @@ if(!vaikey){
 	if(currentgoal == none){
 		voltabesta(spot);
 	}
+	//fim do if(!click)
+	}
+    else{
+			if(currentgoal.IsA('BD_InimigoPawn')){
+			if(BD_AnaoRangedPawn(pawn).touchthat(currentgoal)){
+				BD_AnaoRangedPawn(pawn).startfire(0);
+			}
+			else BD_AnaoRangedPawn(pawn).stopfire(0);
+			}
+			else BD_AnaoRangedPawn(pawn).stopfire(0);
 
+			if(currentgoal == none){
+			currentgoal = themouse;
+			}
+    }
 		 `Log(self@"Current Goal final:"@self.CurrentGoal);
 		 WhatToDoNext();
 }
