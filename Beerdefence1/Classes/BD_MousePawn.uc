@@ -5,44 +5,135 @@
 //-----------------------------------------------------------
 
 class BD_mousePawn extends BD_SimplePawn;
+var vector vscale;
+var actor A_tocado;
+
+simulated event postbeginplay(){
+	super.PostBeginPlay();
+  self.SetCollision(true,false);
+  self.Mesh.SetSkeletalMesh(SkeletalMesh'Personagem.anao_UV');
+  self.Mesh.SetScale(1.5);
+}
+
+function Tick(float DeltaTime)
+{
+local actor aux;
+if(Touching.Length == 0) {
+		`log("toque3");
+		if(A_tocado == none){
+		mouseselect(1);
+		}else mouseselect(3);
+	}else
+{
+foreach TouchingActors (class'actor', aux){
+if(aux.IsA('BD_InimigoPawn')){
+		//`log("toque1");
+		mouseselect(4);
+	}else if(aux.IsA('BD_mose_place')){
+		//`log("toque2");
+		mouseselect(2);
+	}else {
+		//`log("toque3");
+		if(A_tocado == none){
+		mouseselect(1);
+		}else mouseselect(3);
+	}
+}}
+  
+}
 
 event Touch(Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vector HitNormal)
 {
-	local BD_PlayerController pcontroller;
-	
-	pcontroller = BeerDefenceGame(WorldInfo.Game).joyfulPlayerController;
-    super.Touch(Other, OtherComp, HitLocation, HitNormal);		
-	if(Other.IsA('BD_InimigoPawn')){
-		`log("toque");
-		//pcontroller.canatak = true;
-	//	pcontroller.exemplo = BD_InimigoPawn(Other);
-	}
 		
 }
 
+
+
 function mouseselect(int sel){
-local ParticleSystem part1;
-local ParticleSystem part2;
-local ParticleSystem part3;
 
 
-
-part1 = ParticleSystem'KismetGame_Assets.Projectile.P_Spit_01';
-part2 = ParticleSystem'Pickups.Base_Teleporter.Effects.P_Pickups_Teleporter_Base_Idle';
-part3 = ParticleSystem'KismetGame_Assets.Projectile.P_Spit_01';
 if(sel == 1){
-worldinfo.MyEmitterPool.SpawnEmitter(part1,self.Location);
-worldinfo.MyEmitterPool.SetLocation(self.Location);
-
+	self.Mesh.SetSkeletalMesh(SkeletalMesh'KismetGame_Assets.Pickups.SK_Carrot');
+	self.Mesh.SetScale(1.5);
 }
 if(sel == 2){
-worldinfo.MyEmitterPool.SpawnEmitter(part2,self.Location);
-worldinfo.MyEmitterPool.SetLocation(self.Location);
+	self.Mesh.SetSkeletalMesh(SkeletalMesh'Personagem.anao_UV');
+	self.Mesh.SetScale(1.5);
 }
 if(sel == 3){
-worldinfo.MyEmitterPool.SpawnEmitter(part3,self.Location);
-worldinfo.MyEmitterPool.SetLocation(self.Location);
+	self.Mesh.SetSkeletalMesh(SkeletalMesh'CTF_Flag_IronGuard.Mesh.S_CTF_Flag_IronGuard');
+	self.Mesh.SetScale(1.5);
 }
+if(sel == 4){
+	self.Mesh.SetSkeletalMesh(SkeletalMesh'Personagem.espada');
+	self.Mesh.SetScale(1.5);
+}
+	}
+
+
+function Selection(actor pumba)
+{
+A_tocado = pumba;
+//`log("A_tocado " @A_tocado);
+}
+
+function int doaction(){
+	local BD_mose_place aux_anao;
+	local actor aux;
+		//if(A_tocado != none){          //se tiver um anao selecionado e
+		//	if(Touching.Length == 0){  //se não estiver tocando ninguem move
+		//		BD_AnaoPawn(A_tocado).bemoveto(self.Location);
+		//		return 1;
+		//			}
+		//		else {
+		//			if(Touching[0].isA('BD_InimigoPawn')){  // se estiver tocando alguem da o comando de ataque
+		//			BD_AnaoPawn(A_tocado).doAtack(BD_InimigoPawn(Touching[0]));
+		//			return 2;
+		//			}
+		//			if(Touching[0].isA('BD_mose_place')){// se tiver tocando um outro anão muda selecao
+		//				aux_anao = BD_mose_place(Touching[0]);
+		//				self.Selection(aux_anao.follower);
+		//			return 3;
+		//			}
+		//		}
+		//}
+		//else //se não tiver ninguem selecionado e
+		//	if(Touching.Length != 0){ // estiver tocando alguem e 
+		//		if(Touching[0].isA('BD_mose_place')){ // esse alguem é um anão então seleciona
+		//			aux_anao = BD_mose_place(Touching[0]);
+		//			self.Selection(aux_anao.follower);
+		//			return 3;
+		//		}
+		//		else return -1; // se não for um anão então não faz nada
+		//}
+		//else return -1;//se não estiver tocando ninguem então não faz nada
+	foreach TouchingActors (class'actor', aux){
+		if(A_tocado != none){          //se tiver um anao selecionado e
+							  //se não estiver tocando ninguem move
+					if(aux.isA('BD_InimigoPawn')){  // se estiver tocando alguem da o comando de ataque
+					BD_AnaoPawn(A_tocado).doAtack(BD_InimigoPawn(aux));
+					return 2;
+					}
+					if(aux.isA('BD_mose_place')){// se tiver tocando um outro anão muda selecao
+						aux_anao = BD_mose_place(aux);
+						self.Selection(aux_anao.follower);
+					return 3;
+					}
+				}
+		
+		else //se não tiver ninguem selecionado e
+			 // estiver tocando alguem e 
+				if(aux.isA('BD_mose_place')){ // esse alguem é um anão então seleciona
+					aux_anao = BD_mose_place(aux);
+					self.Selection(aux_anao.follower);
+					return 3;
+				}
+				else return -1; // se não for um anão então não faz nada
+		
+		//se não estiver tocando ninguem então não faz nada
+	}
+		BD_AnaoPawn(A_tocado).bemoveto(self.Location);
+				return 1;
 	}
 
 defaultproperties
@@ -50,9 +141,9 @@ defaultproperties
 	 Begin Object Class=CylinderComponent NAME=rangecylinder2
 		CollideActors=true
 		hiddengame =false;
-        CollisionRadius=+150.000000
+        CollisionRadius=+50.000000
         CollisionHeight=+10.000000
     End Object
 	Components.Add(rangecylinder2)
-	
+	vscale=10
 }

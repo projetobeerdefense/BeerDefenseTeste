@@ -20,6 +20,10 @@ var int timeclean;
 var bool click;
 var bool bused;
 var actor themouse;
+var bool bAutomato;
+var bool bmove;
+var bool batack;
+
 //-----------------------------------------------------------
 // @@ Classe responsavel pela IA da Basica do Anao
 //-----------------------------------------------------------
@@ -29,6 +33,21 @@ function voltabesta(actor goal){
 	go();
 	preparar = true;
 	vaikey = true;
+}
+function moveing(vector target){
+	local BotMarker aux;
+	bAutomato = false;
+	aux = Spawn(class'BotMarker',,,target);
+	currentgoal = aux;
+	bmove = true;
+ `log("movendo para " @target);
+}
+
+function atack(BD_InimigoPawn inimigo){
+ `log(self @"atacando " @inimigo);
+	bAutomato = false;
+	currentgoal = inimigo;
+	batack = true;
 }
 
 function setgoal(actor buya){

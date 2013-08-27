@@ -5,16 +5,32 @@
 //-----------------------------------------------------------
 
 class BD_Anao_Atirador_Controller extends BD_AnaoController;
-
 //-----------------------------------------------------------
 // @@ Classe responsavel pela IA da Basica do Anao
 //-----------------------------------------------------------
-
+var int atakindex;
 //-----------------------------------------------------------
 // Criado por Igor Felga
 // Criado em 05/10/2012 - 12:25
 // Classe "BD_AnaoController" - Para o Jogo Beer Defense
 //-----------------------------------------------------------
+
+function moveing(vector target){
+	local BotMarker aux;
+	bAutomato = false;
+	aux = Spawn(class'BotMarker',,,target);
+	currentgoal = aux;
+	bmove = true;
+ super.moveing(target);
+
+}
+function atack(BD_InimigoPawn inimigo){
+	bAutomato = false;
+	currentgoal = inimigo;
+	batack = true;
+ super.atack(inimigo);
+
+}
 
 
 //-----------------------------------------------------------
@@ -24,15 +40,12 @@ class BD_Anao_Atirador_Controller extends BD_AnaoController;
 function Tick(float DeltaTime0)
 {   
 		
-	if(!click){
+	if(bAutomato){
 
 	if(bused){
 	voltabesta(spot);
 	bused =false;
 	}
-	//variavel auxiliar que guarda o currentgoal (spot ou click)
-         //Confere se Anão está atordoado
-     //    BD_Anao_Guerreiro_Pawn(pawn).quemtaai();
 		 proxalvo = BD_Anao_Atirador_Pawn(pawn).next();
 		 `Log(self@"Current Goal incial:"@self.CurrentGoal);
 
@@ -133,20 +146,43 @@ if(!vaikey){
 	if(currentgoal == none){
 		voltabesta(spot);
 	}
-	//fim do if(!click)
+	
 	}
-    else{
-			if(currentgoal.IsA('BD_InimigoPawn')){
-			if(BD_AnaoRangedPawn(pawn).touchthat(currentgoal)){
-				BD_AnaoRangedPawn(pawn).startfire(0);
-			}
-			else BD_AnaoRangedPawn(pawn).stopfire(0);
-			}
-			else BD_AnaoRangedPawn(pawn).stopfire(0);
 
-			if(currentgoal == none){
-			currentgoal = themouse;
+    else
+    {   if(batack)
+		{   bmove = false;
+			bAutomato = false;
+			if(currentgoal == none || BD_InimigoPawn(currentgoal).bstun)
+			{
+				pawn.stopfire(0);
+				batack = false;
 			}
+			else
+			{
+				atakindex = Touching.Find(currentgoal);
+				if(atakindex != -1){
+					pawn.stopfire(0);
+				}
+				else{
+					pawn.startfire(0);
+				}
+				
+			}
+		}
+		else
+		if(bmove)
+		{   
+			batack = false;
+			bautomato = false;
+			self.go();
+		}
+		else
+		{
+			batack = false;
+			bmove = false;
+			bAutomato = true;
+		}
     }
 		 `Log(self@"Current Goal final:"@self.CurrentGoal);
 		 WhatToDoNext();
@@ -164,7 +200,8 @@ event WhatToDoNext()
 
 DefaultProperties
 {
-    stumtime = 3
+    bAutomato = true;
+	stumtime = 3
 	preparar = true
 	x=0
 	tempolimite = 10

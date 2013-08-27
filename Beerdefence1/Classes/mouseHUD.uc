@@ -173,168 +173,168 @@ function DrawHUD()
 }
 
 //---------------------------------função para a seleção dos anões------------------------------------------------------
-exec function Selection()
-{
-	//seleciona o anão
-	if(selected==false)
-    {
-           //Verifica se o anão 0 está selecionado
-           if(HitLocation.X <= joyfulController.Anao_Pawn[0].Location.X +200 && HitLocation.X >= joyfulController.Anao_Pawn[0].Location.X -100 &&
-		      HitLocation.Y <= joyfulController.Anao_Pawn[0].Location.Y +200 && HitLocation.Y >= joyfulController.Anao_Pawn[0].Location.Y -100)
-           {
-			    //   WorldInfo.Game.Broadcast(self,"CLICK SELECT 0 ");
-			       selected=true;
-			       anao=0;
-           }
+//exec function Selection()
+//{
+//	//seleciona o anão
+//	if(selected==false)
+//    {
+//           //Verifica se o anão 0 está selecionado
+//           if(HitLocation.X <= joyfulController.Anao_Pawn[0].Location.X +200 && HitLocation.X >= joyfulController.Anao_Pawn[0].Location.X -100 &&
+//		      HitLocation.Y <= joyfulController.Anao_Pawn[0].Location.Y +200 && HitLocation.Y >= joyfulController.Anao_Pawn[0].Location.Y -100)
+//           {
+//			    //   WorldInfo.Game.Broadcast(self,"CLICK SELECT 0 ");
+//			       selected=true;
+//			       anao=0;
+//           }
 
-           //Verifica se o anão 1 está selecionado
-	       if(HitLocation.X <= joyfulController.Anao_Pawn[1].Location.X +200 && HitLocation.X >= joyfulController.Anao_Pawn[1].Location.X -100 &&
-		      HitLocation.Y <= joyfulController.Anao_Pawn[1].Location.Y +200 && HitLocation.Y >= joyfulController.Anao_Pawn[1].Location.Y -100)
-           {
-                //   WorldInfo.Game.Broadcast(self,"CLICK SELECT 1 ");
-			       selected=true;
-			       anao=1;
-           }
+//           //Verifica se o anão 1 está selecionado
+//	       if(HitLocation.X <= joyfulController.Anao_Pawn[1].Location.X +200 && HitLocation.X >= joyfulController.Anao_Pawn[1].Location.X -100 &&
+//		      HitLocation.Y <= joyfulController.Anao_Pawn[1].Location.Y +200 && HitLocation.Y >= joyfulController.Anao_Pawn[1].Location.Y -100)
+//           {
+//                //   WorldInfo.Game.Broadcast(self,"CLICK SELECT 1 ");
+//			       selected=true;
+//			       anao=1;
+//           }
 
-	       //Verifica se o anão 2 está selecionado
-           if(HitLocation.X <= joyfulController.Anao_Pawn[2].Location.X +200 && HitLocation.X >= joyfulController.Anao_Pawn[2].Location.X -100 &&
-		      HitLocation.Y <= joyfulController.Anao_Pawn[2].Location.Y +200 && HitLocation.Y >= joyfulController.Anao_Pawn[2].Location.Y -100)
-           {
-               //    WorldInfo.Game.Broadcast(self,"CLICK SELECT 2 ");
-			       selected=true;
-			       anao=2;
-           }
+//	       //Verifica se o anão 2 está selecionado
+//           if(HitLocation.X <= joyfulController.Anao_Pawn[2].Location.X +200 && HitLocation.X >= joyfulController.Anao_Pawn[2].Location.X -100 &&
+//		      HitLocation.Y <= joyfulController.Anao_Pawn[2].Location.Y +200 && HitLocation.Y >= joyfulController.Anao_Pawn[2].Location.Y -100)
+//           {
+//               //    WorldInfo.Game.Broadcast(self,"CLICK SELECT 2 ");
+//			       selected=true;
+//			       anao=2;
+//           }
 
-           //Verifica se o anão 3 está selecionado
-	       if(HitLocation.X <= joyfulController.Anao_Pawn[3].Location.X +200 && HitLocation.X >= joyfulController.Anao_Pawn[3].Location.X -100 &&
-		      HitLocation.Y <= joyfulController.Anao_Pawn[3].Location.Y +200 && HitLocation.Y >= joyfulController.Anao_Pawn[3].Location.Y -100)
-           {
-               //    WorldInfo.Game.Broadcast(self,"CLICK SELECT 3 ");
-			       selected=true;
-			       anao=3;
-           }
+//           //Verifica se o anão 3 está selecionado
+//	       if(HitLocation.X <= joyfulController.Anao_Pawn[3].Location.X +200 && HitLocation.X >= joyfulController.Anao_Pawn[3].Location.X -100 &&
+//		      HitLocation.Y <= joyfulController.Anao_Pawn[3].Location.Y +200 && HitLocation.Y >= joyfulController.Anao_Pawn[3].Location.Y -100)
+//           {
+//               //    WorldInfo.Game.Broadcast(self,"CLICK SELECT 3 ");
+//			       selected=true;
+//			       anao=3;
+//           }
 
-            //Verifica se a carroça ta selecionada está selecionado
-            if(HitLocation.X <= joyfulController.Car_Followpawn.Location.X +200 && HitLocation.X >= joyfulController.Car_Followpawn.Location.X -100 &&
-		       HitLocation.Y <= joyfulController.Car_Followpawn.Location.Y +200 && HitLocation.Y >= joyfulController.Car_Followpawn.Location.Y -100)
-           {
-			  //     WorldInfo.Game.Broadcast(self,"CLICK SELECT CARROCA ");
-			       selected=true;
-			       anao=4;
-           }
-	}
+//            //Verifica se a carroça ta selecionada está selecionado
+//            if(HitLocation.X <= joyfulController.Car_Followpawn.Location.X +200 && HitLocation.X >= joyfulController.Car_Followpawn.Location.X -100 &&
+//		       HitLocation.Y <= joyfulController.Car_Followpawn.Location.Y +200 && HitLocation.Y >= joyfulController.Car_Followpawn.Location.Y -100)
+//           {
+//			  //     WorldInfo.Game.Broadcast(self,"CLICK SELECT CARROCA ");
+//			       selected=true;
+//			       anao=4;
+//           }
+//	}
 
-	//faz o anão selecionado andar até a posição do clique caso não clique em outro anão
-	else {
+//	//faz o anão selecionado andar até a posição do clique caso não clique em outro anão
+//	else {
 
-           //se clicar no anão 0, muda a seleção para o anão para ele
-	       if(HitLocation.X <= joyfulController.Anao_Pawn[0].Location.X +200 && HitLocation.X >= joyfulController.Anao_Pawn[0].Location.X -100 &&
-		      HitLocation.Y <= joyfulController.Anao_Pawn[0].Location.Y +200 && HitLocation.Y >= joyfulController.Anao_Pawn[0].Location.Y -100)
-           {
+//           //se clicar no anão 0, muda a seleção para o anão para ele
+//	       if(HitLocation.X <= joyfulController.Anao_Pawn[0].Location.X +200 && HitLocation.X >= joyfulController.Anao_Pawn[0].Location.X -100 &&
+//		      HitLocation.Y <= joyfulController.Anao_Pawn[0].Location.Y +200 && HitLocation.Y >= joyfulController.Anao_Pawn[0].Location.Y -100)
+//           {
 
-                    if(anao == 0)
-                    {
-			               //WorldInfo.Game.Broadcast(self,"CLICK DESELECT 0 ");
-			               //WorldInfo.Game.Broadcast(self,"VOLTA HUD DA CARROCA");
-			               anao=4;
-			               selected=FALSE;
-        			}
+//                    if(anao == 0)
+//                    {
+//			               //WorldInfo.Game.Broadcast(self,"CLICK DESELECT 0 ");
+//			               //WorldInfo.Game.Broadcast(self,"VOLTA HUD DA CARROCA");
+//			               anao=4;
+//			               selected=FALSE;
+//        			}
 
-                    else
-                    {
-			         //      WorldInfo.Game.Broadcast(self,"CLICK SELECT CHANGE TO 0 ");
-			               anao=0;
-                    }
-           }
+//                    else
+//                    {
+//			         //      WorldInfo.Game.Broadcast(self,"CLICK SELECT CHANGE TO 0 ");
+//			               anao=0;
+//                    }
+//           }
 
-	       //se clicar no anão 1, muda a seleção para o anão para ele
-	       else if(HitLocation.X <= joyfulController.Anao_Pawn[1].Location.X +200 && HitLocation.X >= joyfulController.Anao_Pawn[1].Location.X -100 &&
-		           HitLocation.Y <= joyfulController.Anao_Pawn[1].Location.Y +200 && HitLocation.Y >= joyfulController.Anao_Pawn[1].Location.Y -100)
-           {
-			        if(anao == 1)
-                    {
-                  //         WorldInfo.Game.Broadcast(self,"CLICK DESELECT 1 ");
-			               //WorldInfo.Game.Broadcast(self,"VOLTA HUD DA CARROCA");
-			               anao=4;
-			               selected=FALSE;
-                    }
+//	       //se clicar no anão 1, muda a seleção para o anão para ele
+//	       else if(HitLocation.X <= joyfulController.Anao_Pawn[1].Location.X +200 && HitLocation.X >= joyfulController.Anao_Pawn[1].Location.X -100 &&
+//		           HitLocation.Y <= joyfulController.Anao_Pawn[1].Location.Y +200 && HitLocation.Y >= joyfulController.Anao_Pawn[1].Location.Y -100)
+//           {
+//			        if(anao == 1)
+//                    {
+//                  //         WorldInfo.Game.Broadcast(self,"CLICK DESELECT 1 ");
+//			               //WorldInfo.Game.Broadcast(self,"VOLTA HUD DA CARROCA");
+//			               anao=4;
+//			               selected=FALSE;
+//                    }
 
-                    else
-                    {
-			            //   WorldInfo.Game.Broadcast(self,"CLICK SELECT CHANGE TO 1 ");
-			               anao=1;
-                    }
-           }
+//                    else
+//                    {
+//			            //   WorldInfo.Game.Broadcast(self,"CLICK SELECT CHANGE TO 1 ");
+//			               anao=1;
+//                    }
+//           }
 
-           //se clicar no anão 2, muda a seleção para o anão para ele
-	       else if(HitLocation.X <= joyfulController.Anao_Pawn[2].Location.X +200 && HitLocation.X >= joyfulController.Anao_Pawn[2].Location.X -100 &&
-		           HitLocation.Y <= joyfulController.Anao_Pawn[2].Location.Y +200 && HitLocation.Y >= joyfulController.Anao_Pawn[2].Location.Y -100)
-           {
-			        if(anao == 2)
-                    {
-			           //    WorldInfo.Game.Broadcast(self,"CLICK DESELECT 2 ");
-			             //  WorldInfo.Game.Broadcast(self,"VOLTA HUD DA CARROCA");
-			               anao=4;
-			               selected=FALSE;
-                    }
+//           //se clicar no anão 2, muda a seleção para o anão para ele
+//	       else if(HitLocation.X <= joyfulController.Anao_Pawn[2].Location.X +200 && HitLocation.X >= joyfulController.Anao_Pawn[2].Location.X -100 &&
+//		           HitLocation.Y <= joyfulController.Anao_Pawn[2].Location.Y +200 && HitLocation.Y >= joyfulController.Anao_Pawn[2].Location.Y -100)
+//           {
+//			        if(anao == 2)
+//                    {
+//			           //    WorldInfo.Game.Broadcast(self,"CLICK DESELECT 2 ");
+//			             //  WorldInfo.Game.Broadcast(self,"VOLTA HUD DA CARROCA");
+//			               anao=4;
+//			               selected=FALSE;
+//                    }
 
-                    else
-                    {
-			               //WorldInfo.Game.Broadcast(self,"CLICK SELECT CHANGE TO 2 ");
-			               anao=2;
-                    }
-           }
+//                    else
+//                    {
+//			               //WorldInfo.Game.Broadcast(self,"CLICK SELECT CHANGE TO 2 ");
+//			               anao=2;
+//                    }
+//           }
 
-           //se clicar no anão 3, muda a seleção para o anão para ele
-	       else if(HitLocation.X <= joyfulController.Anao_Pawn[3].Location.X +200 && HitLocation.X >= joyfulController.Anao_Pawn[3].Location.X -100 &&
-		           HitLocation.Y <= joyfulController.Anao_Pawn[3].Location.Y +200 && HitLocation.Y >= joyfulController.Anao_Pawn[3].Location.Y -100)
-           {
-			       if(anao == 3)
-                   {
-			     //         WorldInfo.Game.Broadcast(self,"CLICK DESELECT 3 ");
-			       //       WorldInfo.Game.Broadcast(self,"VOLTA HUD DA CARROCA");
-			              anao=4;
-			              selected=FALSE;
-                   }
+//           //se clicar no anão 3, muda a seleção para o anão para ele
+//	       else if(HitLocation.X <= joyfulController.Anao_Pawn[3].Location.X +200 && HitLocation.X >= joyfulController.Anao_Pawn[3].Location.X -100 &&
+//		           HitLocation.Y <= joyfulController.Anao_Pawn[3].Location.Y +200 && HitLocation.Y >= joyfulController.Anao_Pawn[3].Location.Y -100)
+//           {
+//			       if(anao == 3)
+//                   {
+//			     //         WorldInfo.Game.Broadcast(self,"CLICK DESELECT 3 ");
+//			       //       WorldInfo.Game.Broadcast(self,"VOLTA HUD DA CARROCA");
+//			              anao=4;
+//			              selected=FALSE;
+//                   }
 
-			       else
-                   {
-			         //     WorldInfo.Game.Broadcast(self,"CLICK SELECT CHANGE TO 3 ");
-			              anao=3;
-         	       }
-           }
+//			       else
+//                   {
+//			         //     WorldInfo.Game.Broadcast(self,"CLICK SELECT CHANGE TO 3 ");
+//			              anao=3;
+//         	       }
+//           }
 
-	       else if(HitLocation.X <= joyfulController.Car_Followpawn.Location.X +200 && HitLocation.X >= joyfulController.Car_Followpawn.Location.X -100 &&
-                   HitLocation.Y <= joyfulController.Car_Followpawn.Location.Y +200 && HitLocation.Y >= joyfulController.Car_Followpawn.Location.Y -100)
-           {
-			       if(anao == 4)
-                   {
-                   ///       WorldInfo.Game.Broadcast(self,"CLICK DESELECT CARROCA ");
-			       //       WorldInfo.Game.Broadcast(self,"VOLTA HUD DA CARROCA");
-			              anao=4;
-			              selected=FALSE;
-                   }
+//	       else if(HitLocation.X <= joyfulController.Car_Followpawn.Location.X +200 && HitLocation.X >= joyfulController.Car_Followpawn.Location.X -100 &&
+//                   HitLocation.Y <= joyfulController.Car_Followpawn.Location.Y +200 && HitLocation.Y >= joyfulController.Car_Followpawn.Location.Y -100)
+//           {
+//			       if(anao == 4)
+//                   {
+//                   ///       WorldInfo.Game.Broadcast(self,"CLICK DESELECT CARROCA ");
+//			       //       WorldInfo.Game.Broadcast(self,"VOLTA HUD DA CARROCA");
+//			              anao=4;
+//			              selected=FALSE;
+//                   }
 
-                   else
-                   {
-			     //         WorldInfo.Game.Broadcast(self,"CLICK SELECT CHANGE TO CARROCA ");
-			              anao=4;
-                   }
-           }
+//                   else
+//                   {
+//			     //         WorldInfo.Game.Broadcast(self,"CLICK SELECT CHANGE TO CARROCA ");
+//			              anao=4;
+//                   }
+//           }
 
-	       // se não clicar em nenhum anão move o anão selecionado para a posição indicada
-	       else
-           {
-		           if(anao != 4)
-                   {
-		            //      WorldInfo.Game.Broadcast(self,"CLICK MOVE " @anao);
-		                  selected=FALSE;
-		                  joyfulController.Mover(HitLocation,anao);
-                   }
-           }
-	}
+//	       // se não clicar em nenhum anão move o anão selecionado para a posição indicada
+//	       else
+//           {
+//		           if(anao != 4)
+//                   {
+//		            //      WorldInfo.Game.Broadcast(self,"CLICK MOVE " @anao);
+//		                  selected=FALSE;
+//		                  joyfulController.Mover(HitLocation,anao);
+//                   }
+//           }
+//	}
 
-}
+//}
 
 
 //HUD de interface
@@ -402,67 +402,7 @@ function interHUD(int target)
 }
 
 //-----------------------------------------------------------------------------------------------------------------------
-//binds habilidades
-//botão 1
 
-exec function hab1(){
-if(oldtarget ==4){
-	//WorldInfo.Game.Broadcast(self,"CALL SKILL1 FROM CARROCA");
-}else if(oldtarget ==3){
-	//WorldInfo.Game.Broadcast(self,"CALL SKILL1 FROM ANAO 3");
-}else if(oldtarget ==2){
-	//WorldInfo.Game.Broadcast(self,"CALL SKILL1 FROM ANAO 2");
-}else if(oldtarget ==1){
-	//WorldInfo.Game.Broadcast(self,"CALL SKILL1 FROM ANAO 1");
-}else if(oldtarget ==0){
-	//WorldInfo.Game.Broadcast(self,"CALL SKILL1 FROM ANAO 0");
-}
-}
-
-//botão2
-exec function hab2(){
-if(oldtarget ==4){
-	//WorldInfo.Game.Broadcast(self,"CALL SKILL2 FROM CARROCA");
-}else if(oldtarget ==3){
-	//WorldInfo.Game.Broadcast(self,"CALL SKILL2 FROM ANAO 3");
-}else if(oldtarget ==2){
-	//WorldInfo.Game.Broadcast(self,"CALL SKILL2 FROM ANAO 2");
-}else if(oldtarget ==1){
-	//WorldInfo.Game.Broadcast(self,"CALL SKILL2 FROM ANAO 1");
-}else if(oldtarget ==0){
-	//WorldInfo.Game.Broadcast(self,"CALL SKILL2 FROM ANAO 0");
-}
-}
-
-//botão 3
-exec function hab3(){
-if(oldtarget ==4){
-	//WorldInfo.Game.Broadcast(self,"CALL SKILL3 FROM CARROCA");
-}else if(oldtarget ==3){
-	//WorldInfo.Game.Broadcast(self,"CALL SKILL3 FROM ANAO 3");
-}else if(oldtarget ==2){
-	//WorldInfo.Game.Broadcast(self,"CALL SKILL3 FROM ANAO 2");
-}else if(oldtarget ==1){
-	//WorldInfo.Game.Broadcast(self,"CALL SKILL3 FROM ANAO 1");
-}else if(oldtarget ==0){
-	//WorldInfo.Game.Broadcast(self,"CALL SKILL3 FROM ANAO 0");
-}
-}
-
-//botão 4
-exec function hab4(){
-if(oldtarget ==4){
-	//WorldInfo.Game.Broadcast(self,"CALL SKILL4 FROM CARROCA");
-}else if(oldtarget ==3){
-	//WorldInfo.Game.Broadcast(self,"CALL SKILL4 FROM ANAO 3");
-}else if(oldtarget ==2){
-	///WorldInfo.Game.Broadcast(self,"CALL SKILL4 FROM ANAO 2");
-}else if(oldtarget ==1){
-	//WorldInfo.Game.Broadcast(self,"CALL SKILL4 FROM ANAO 1");
-}else if(oldtarget ==0){
-	//WorldInfo.Game.Broadcast(self,"CALL SKILL4 FROM ANAO 0");
-}
-}
 
 //-----------------------------------------------------------------------------------------------------------------------
 //PROPERTIES

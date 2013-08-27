@@ -64,6 +64,8 @@ var bool canatak;
 var BD_mousePawn mousep;
 var BotController mousecon;
 
+var array <BD_mose_place> m_place;
+
 simulated function PostBeginPlay()
 {
     local PathNode aux;
@@ -167,7 +169,10 @@ function SpawnBot(Vector SpawnLocation)
       Anao_Bot[0].CurrentGoal = self.Spots[0];
 	  Anao_Bot[0].spot= self.Spots[0];
       Anao_Pawn[0].SetPhysics(PHYS_Falling);
-		
+		SpawnLocation.z += 1000;
+	  m_place[0] = Spawn(class'BD_mose_place',,,SpawnLocation);
+	  m_place[0].followby(Anao_Pawn[0]);
+	  SpawnLocation.z -= 1000;
 	  SpawnLocation.x += 50;
 
 	  Anao_Bot[1] = Spawn(class'BD_Anao_Atirador_Controller',,,SpawnLocation);
@@ -176,7 +181,10 @@ function SpawnBot(Vector SpawnLocation)
       Anao_Bot[1].CurrentGoal = self.Spots[1];
 	  Anao_Bot[1].spot= self.Spots[1];
       Anao_Pawn[1].SetPhysics(PHYS_Falling);
-
+	  SpawnLocation.z += 1000;
+	  m_place[1] = Spawn(class'BD_mose_place',,,SpawnLocation);
+	  m_place[1].followby(Anao_Pawn[1]);
+	  SpawnLocation.z -= 1000;
 	  SpawnLocation.x += 50;
 
 	  Anao_Bot[2] = Spawn(class'BD_Anao_Atirador_Controller',,,SpawnLocation);
@@ -185,7 +193,10 @@ function SpawnBot(Vector SpawnLocation)
       Anao_Bot[2].CurrentGoal = self.Spots[2];
 	  Anao_Bot[2].spot= self.Spots[2];
       Anao_Pawn[2].SetPhysics(PHYS_Falling);
-
+	  SpawnLocation.z += 1000;
+	  m_place[2] = Spawn(class'BD_mose_place',,,SpawnLocation);
+	  m_place[2].followby(Anao_Pawn[2]);
+	  SpawnLocation.z -= 1000;
 	  SpawnLocation.x += 50;
 
 	  Anao_Bot[3] = Spawn(class'BD_Anao_Atirador_Controller',,,SpawnLocation);
@@ -194,6 +205,10 @@ function SpawnBot(Vector SpawnLocation)
       Anao_Bot[3].CurrentGoal = self.Spots[3];
 	  Anao_Bot[3].spot= self.Spots[3];
       Anao_Pawn[3].SetPhysics(PHYS_Falling);
+	  SpawnLocation.z += 1000;
+	  m_place[3] = Spawn(class'BD_mose_place',,,SpawnLocation);
+	  m_place[3].followby(Anao_Pawn[3]);
+	  SpawnLocation.z -= 1000;
 
 	  Anao_Pawn[0].AddDefaultInventory();
 	  Anao_Pawn[1].AddDefaultInventory();
@@ -226,20 +241,47 @@ function updateSpots(vector newLocation)
     Spots[3].SetLocation(updateLocation);
 }
 
-function updateMousep(vector newLocation,int x)
-{
-  
-	
+
+exec function actionbymouse(){
+	local int test;
+	test = mousep.doaction();
+	if(test == 1)`log("anda");
+	if(test == 2)`log("ataca");
+	if(test == 3)`log("troca");
 }
 
+
+exec function hab1(){
+`log("A_tocado ");
+mousep.Selection(Anao_Pawn[0]);
+
+}
+
+//botão2
+exec function hab2(){
+
+mousep.Selection(Anao_Pawn[1]);
+}
+
+//botão 3
+exec function hab3(){
+
+mousep.Selection(Anao_Pawn[2]);
+}
+
+//botão 4
+exec function hab4(){
+
+mousep.Selection(Anao_Pawn[3]);
+}
 
 function PlayerTick(float DeltaTime)
 {
     local int dist;
 	local  float mx;  //change in mouse x direction from user
 	local  float my;  //change in mouse y direction from user
-	local int cont;
-	local int cont2;
+	//local int cont;
+	//local int cont2;
 	local vector loclin;
 	//
 	//worldinfo.game.broadcast(self,"carroca index = "@car_followpawn.index);
@@ -303,84 +345,95 @@ function PlayerTick(float DeltaTime)
 		BeerDefenceGame(WorldInfo.Game).joyHUD.MousePosition.Y += -my;
 //---------------------------------------------------------------------
 //muda particula ao selecionar---------------------------------------
-		if(BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation.X <= Anao_Pawn[0].Location.X +200 && BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation.X >= Anao_Pawn[0].Location.X -100 &&
-		BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation.Y <= Anao_Pawn[0].Location.Y +200 && BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation.Y >= Anao_Pawn[0].Location.Y -100){
+		//if(BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation.X <= Anao_Pawn[0].Location.X +200 && BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation.X >= Anao_Pawn[0].Location.X -100 &&
+		//BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation.Y <= Anao_Pawn[0].Location.Y +200 && BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation.Y >= Anao_Pawn[0].Location.Y -100){
 			
-		//	MouseX.Destroy();
-			themouse=1;
+
+		if(themouse == 1){
 			
-			mousep.mouseselect(2);
-			//WorldInfo.Game.Broadcast(self,"Spot0 Z = "@ MouseX.Location.Z);
+		}else if(themouse == 2){
+
+		}else if(themouse == 3){
+
+		}else if(themouse == 4){
+
+		}else {
+
+		}
+//	if(mousep.antouch()== Anao_Pawn[0] ){
+		
+//	//	MouseX.Destroy();
+//		themouse=1;
 			
-		} else
-			if(BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation.X <= Anao_Pawn[1].Location.X +200 && BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation.X >= Anao_Pawn[1].Location.X -100 &&
-		BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation.Y <= Anao_Pawn[1].Location.Y +200 && BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation.Y >= Anao_Pawn[1].Location.Y -100){
+//		mousep.mouseselect(2);
+//		//WorldInfo.Game.Broadcast(self,"Spot0 Z = "@ MouseX.Location.Z);
 			
-		//	MouseX.Destroy();
-			themouse=1;
+//	} else
+//		if(mousep.antouch()== Anao_Pawn[0]){
 			
-			mousep.mouseselect(2);
-		//	WorldInfo.Game.Broadcast(self,"Spot0 Z = "@ MouseX.Location.Z);
+//	//	MouseX.Destroy();
+//		themouse=1;
 			
-		} else
-			if(BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation.X <= Anao_Pawn[2].Location.X +200 && BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation.X >= Anao_Pawn[2].Location.X -100 &&
-		BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation.Y <= Anao_Pawn[2].Location.Y +200 && BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation.Y >= Anao_Pawn[2].Location.Y -100){
+//		mousep.mouseselect(2);
+//	//	WorldInfo.Game.Broadcast(self,"Spot0 Z = "@ MouseX.Location.Z);
 			
-		//	MouseX.Destroy();
-			themouse=1;
+//	} else
+//		if( mousep.antouch()== Anao_Pawn[0] ){
 			
-			mousep.mouseselect(2);
-	//		WorldInfo.Game.Broadcast(self,"Spot0 Z = "@ MouseX.Location.Z);
+//	//	MouseX.Destroy();
+//		themouse=1;
 			
-		} else
-			if(BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation.X <= Anao_Pawn[3].Location.X +200 && BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation.X >= Anao_Pawn[3].Location.X -100 &&
-		BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation.Y <= Anao_Pawn[3].Location.Y +200 && BeerDefenceGame(WorldInfo.Game).joyHUD.HitLocation.Y >= Anao_Pawn[3].Location.Y -100){
+//		mousep.mouseselect(2);
+////		WorldInfo.Game.Broadcast(self,"Spot0 Z = "@ MouseX.Location.Z);
 			
-		//	MouseX.Destroy();
-			themouse=1;
+//	} else
+//		if( mousep.antouch()== Anao_Pawn[0]){
 			
-			mousep.mouseselect(2);
-		//	WorldInfo.Game.Broadcast(self,"Spot0 Z = "@ MouseX.Location.Z);
+//	//	MouseX.Destroy();
+//		themouse=1;
 			
-		} else
-//muda particula até escolher o local para mover
-		if(BeerDefenceGame(WorldInfo.Game).joyHUD.selected ==true){
-		//	MouseX.tag='move';
-			themouse=2;
+//		mousep.mouseselect(2);
+//	//	WorldInfo.Game.Broadcast(self,"Spot0 Z = "@ MouseX.Location.Z);
 			
-			mousep.mouseselect(3);
-			if(BeerDefenceGame(WorldInfo.Game).joyHUD.anao != 0){
-			 Anao_Bot[BeerDefenceGame(WorldInfo.Game).joyHUD.anao].click = true;
-			 Anao_Bot[BeerDefenceGame(WorldInfo.Game).joyHUD.anao].setgoal(mousep);
-				for(cont2 = 0;cont2<4;cont2++){
-				if(cont2 != BeerDefenceGame(WorldInfo.Game).joyHUD.anao){
-				Anao_Bot[cont2].click = false;
-				`log("mouse been");
-				}
-			}
-			}
+//	} else
+////muda particula até escolher o local para mover
+//	if(BeerDefenceGame(WorldInfo.Game).joyHUD.selected ==true){
+//	//	MouseX.tag='move';
+//		themouse=2;
+			
+//		mousep.mouseselect(3);
+//		if(BeerDefenceGame(WorldInfo.Game).joyHUD.anao != 0){
+//			Anao_Bot[BeerDefenceGame(WorldInfo.Game).joyHUD.anao].click = true;
+			 
+//			for(cont2 = 0;cont2<4;cont2++){
+//			if(cont2 != BeerDefenceGame(WorldInfo.Game).joyHUD.anao){
+//			Anao_Bot[cont2].click = false;
+//			`log("mouse been");
+//			}
+//		}
+//		}
 		
 			
 
-		//	WorldInfo.Game.Broadcast(self,"Spot0 Z = "@ MouseX.Location.Z);
-		} else
-//volta ao normal----------------------------------------------------------------------
-		//MouseX.tag='normal'
-		{
-			if(!Anao_Pawn[BeerDefenceGame(WorldInfo.Game).joyHUD.anao].inisel || BeerDefenceGame(WorldInfo.Game).joyHUD.anao == 4){
-			themouse=0;
+			////	WorldInfo.Game.Broadcast(self,"Spot0 Z = "@ MouseX.Location.Z);
+			//} else
+			////volta ao normal----------------------------------------------------------------------
+			////MouseX.tag='normal'
+			//{
+			//if(!Anao_Pawn[BeerDefenceGame(WorldInfo.Game).joyHUD.anao].inisel || BeerDefenceGame(WorldInfo.Game).joyHUD.anao == 4){
+			//themouse=0;
 			
-			mousep.mouseselect(1);
-			for(cont2 = 0;cont2<4;cont2++){
-				Anao_Bot[cont2].click = false;
-		}
-			}
-			if(Anao_Pawn[BeerDefenceGame(WorldInfo.Game).joyHUD.anao].inisel){
+			//mousep.mouseselect(1);
+			//for(cont2 = 0;cont2<4;cont2++){
+			//	Anao_Bot[cont2].click = false;
+			//}
+			//}
+			//if(Anao_Pawn[BeerDefenceGame(WorldInfo.Game).joyHUD.anao].inisel){
 				
-				mousep.mouseselect(2);
-				Anao_Bot[BeerDefenceGame(WorldInfo.Game).joyHUD.anao].setgoal(exemplo);
-			}
-		}
+			//	mousep.mouseselect(2);
+			//	Anao_Bot[BeerDefenceGame(WorldInfo.Game).joyHUD.anao].setgoal(exemplo);
+			//}
+			//}
 //for(cont=0; cont <4; cont++){
 //	if(vsize(Anao_Pawn[cont].Location - Nspot[cont].Location) <100){
 //		`log("entrando destroy"@Nspot[cont]);

@@ -26,6 +26,16 @@ var array<BD_InimigoPawn> alvos;
 // Metodo que toma conta das ação dadas quando o Anão
 // entra no estado "Morto"
 //-----------------------------------------------------------------------
+function bemoveto(vector target){
+local BD_AnaoController aux;
+aux=BD_AnaoController(controller);  
+aux.moveing(target);
+}
+function doAtack(BD_InimigoPawn inimigo){
+	local BD_AnaoController aux;
+	aux=BD_AnaoController(controller); 
+	aux.atack(inimigo);
+}
 
 function CleanAlvos(){
 	alvos.remove(0,alvos.length);
