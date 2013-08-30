@@ -80,40 +80,13 @@ A_tocado = pumba;
 function int doaction(){
 	local BD_mose_place aux_anao;
 	local actor aux;
-		//if(A_tocado != none){          //se tiver um anao selecionado e
-		//	if(Touching.Length == 0){  //se não estiver tocando ninguem move
-		//		BD_AnaoPawn(A_tocado).bemoveto(self.Location);
-		//		return 1;
-		//			}
-		//		else {
-		//			if(Touching[0].isA('BD_InimigoPawn')){  // se estiver tocando alguem da o comando de ataque
-		//			BD_AnaoPawn(A_tocado).doAtack(BD_InimigoPawn(Touching[0]));
-		//			return 2;
-		//			}
-		//			if(Touching[0].isA('BD_mose_place')){// se tiver tocando um outro anão muda selecao
-		//				aux_anao = BD_mose_place(Touching[0]);
-		//				self.Selection(aux_anao.follower);
-		//			return 3;
-		//			}
-		//		}
-		//}
-		//else //se não tiver ninguem selecionado e
-		//	if(Touching.Length != 0){ // estiver tocando alguem e 
-		//		if(Touching[0].isA('BD_mose_place')){ // esse alguem é um anão então seleciona
-		//			aux_anao = BD_mose_place(Touching[0]);
-		//			self.Selection(aux_anao.follower);
-		//			return 3;
-		//		}
-		//		else return -1; // se não for um anão então não faz nada
-		//}
-		//else return -1;//se não estiver tocando ninguem então não faz nada
+		
+	
+		//se não estiver tocando ninguem então não faz nada
 	foreach TouchingActors (class'actor', aux){
-		if(A_tocado != none){          //se tiver um anao selecionado e
+		if(A_tocado == none){          //se tiver um anao selecionado e
 							  //se não estiver tocando ninguem move
-					if(aux.isA('BD_InimigoPawn')){  // se estiver tocando alguem da o comando de ataque
-					BD_AnaoPawn(A_tocado).doAtack(BD_InimigoPawn(aux));
-					return 2;
-					}
+					
 					if(aux.isA('BD_mose_place')){// se tiver tocando um outro anão muda selecao
 						aux_anao = BD_mose_place(aux);
 						self.Selection(aux_anao.follower);
@@ -121,15 +94,20 @@ function int doaction(){
 					}
 				}
 		
-		else //se não tiver ninguem selecionado e
-			 // estiver tocando alguem e 
-				if(aux.isA('BD_mose_place')){ // esse alguem é um anão então seleciona
+		else {//se não tiver ninguem selecionado e
+			 // estiver tocando alguem e
+			
+			if(aux.isA('BD_InimigoPawn')){  // se estiver tocando alguem da o comando de ataque
+					BD_AnaoPawn(A_tocado).doAtack(BD_InimigoPawn(aux));
+					return 2;
+					}	
+			if(aux.isA('BD_mose_place')){ // esse alguem é um anão então seleciona
 					aux_anao = BD_mose_place(aux);
 					self.Selection(aux_anao.follower);
 					return 3;
 				}
-				else return -1; // se não for um anão então não faz nada
-		
+				 // se não for um anão então não faz nada
+		}
 		//se não estiver tocando ninguem então não faz nada
 	}
 		BD_AnaoPawn(A_tocado).bemoveto(self.Location);

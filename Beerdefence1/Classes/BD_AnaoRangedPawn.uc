@@ -8,11 +8,12 @@
 class BD_AnaoRangedPawn extends BD_anaoPawn;
 
 
+
 //var array<BD_InimigoPawn> alvos;
 
 function CleanAlvos(){
 alvos.remove(0,alvos.length);
-`log(self@"limpando alvos");
+//`log(self@"limpando alvos");
 }
 
 function bool touchthat(actor target){
@@ -44,7 +45,7 @@ event Touch(Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vecto
     super.Touch(Other, OtherComp, HitLocation, HitNormal);		
 	//local primitivecomponent auxcomponent;
 	//auxcomponent = self.components[2];  //srangecylinder;
-	`log(self@"tocou"@other);
+	//`log(self@"tocou"@other);
     if(other.isa('BD_InimigoPawn')){      
     	alvos.additem(BD_InimigoPawn(Other));
     }
@@ -61,7 +62,7 @@ function bd_inimigopawn next(){
 
 function quemtaai(){
 local BD_InimigoPawn aux;
-`log("super teste");
+//`log("super teste");
 alvos.remove(0,alvos.length);
 foreach TouchingActors(class 'BD_InimigoPawn', aux){
 	alvos.additem(aux);
@@ -77,7 +78,7 @@ local int j;
 alvos.remove(0,alvos.length);
 
 foreach TouchingActors(class 'BD_InimigoPawn', aux){
-	`log(self @"maluco funfo");
+	//`log(self @"maluco funfo");
 	alvos.additem(aux);
 
 }
@@ -99,7 +100,7 @@ for(i=0 ; i<alvos.length ; i++){
 }
 alvos.remove(0,alvos.length);
 alvos = vaux;
-`log(self@"numero de alvos depois do sort"@alvos.length);
+//`log(self@"numero de alvos depois do sort"@alvos.length);
 }
 
 

@@ -17,11 +17,11 @@ event tick(float DeltaTime)
 	local BD_Inimigo_Lagarto_Thief_Controller aux ;
 	local BD_Inimigo_Lagarto_Shaman_Controller shamanaux ;
 
-    `log("Começando NController Tick");
+    //`log("Começando NController Tick");
 
 	if(lider != none || lider.bbarrio)
 	{
-	   `log("if(lider != none || lider.bbarrio) == TRUE");
+	   //`log("if(lider != none || lider.bbarrio) == TRUE");
        blider = false;
 	   lider = none;
 	}
@@ -35,7 +35,7 @@ event tick(float DeltaTime)
 				if(!aux.bbarrio)
 				{
 
-                    `log("if(!blider) E if(!aux.bbarrio) SÃO TRUE");
+                    //`log("if(!blider) E if(!aux.bbarrio) SÃO TRUE");
                     lider = aux;
 					lider.bsoulider=true;
 					blider= true;
@@ -48,7 +48,7 @@ event tick(float DeltaTime)
 				{
 					if(!aux.bbarrio)
 					{
-					    `log("if(lider != none) E if(!aux.bbarrio) SÃO TRUE");
+					    //`log("if(lider != none) E if(!aux.bbarrio) SÃO TRUE");
                         aux.currentgoal = lider.currentgoal;
 					    aux.bsoulider = false;
 					}
@@ -66,12 +66,12 @@ event tick(float DeltaTime)
 
     foreach worldInfo.AllActors(class'BD_Inimigo_Lagarto_Shaman_Controller', shamanaux)
 	{
-	    `log("numero de thiefs"@thiefcontador);
+	    //`log("numero de thiefs"@thiefcontador);
 
         if(thiefcontador < 5 && shamanaux.bRead)
         {
 	       shamanaux.spawnthief();
-	       `log("chamou shaman");
+	      // `log("chamou shaman");
 	       thiefcontador++;
 	    }
 	}

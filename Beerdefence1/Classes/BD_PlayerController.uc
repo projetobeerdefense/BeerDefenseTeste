@@ -252,7 +252,7 @@ exec function actionbymouse(){
 
 
 exec function hab1(){
-`log("A_tocado ");
+
 mousep.Selection(Anao_Pawn[0]);
 
 }

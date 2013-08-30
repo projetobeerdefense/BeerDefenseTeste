@@ -6,7 +6,7 @@ class BotMarker extends Actor;
 
 event Touch(Actor Other, PrimitiveComponent OtherComp, vector HitLocation, vector HitNormal)
 {
-    `log(self@"BotMarker Has Been Touched");
+    //`log(self@"BotMarker Has Been Touched");
 }
 
 defaultproperties
